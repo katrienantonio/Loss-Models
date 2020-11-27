@@ -24,7 +24,7 @@
 <meta name="author" content="Katrien Antonio, Jonas Crevecoeur and Bavo DC Campo" />
 
 
-<meta name="date" content="2020-11-26" />
+<meta name="date" content="2020-11-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,6 +51,7 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>
 $(document).ready(function() {
 
@@ -271,8 +272,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">3</span> Simple, parametric distributions for frequency and severity data</h1>
 <div id="the-exponential-distribution" class="section level2">
 <h2><span class="header-section-number">3.1</span> The exponential distribution</h2>
-<p>In this tutorial you will simulate data from an exponential distribution with density</p>
+In this tutorial you will simulate data from an exponential distribution with density
+<div>
 <p><span class="math display">\[ f(x) = \lambda \cdot e^{-\lambda \cdot x}.\]</span></p>
+</div>
 <p>You will then explore and visualize these data. Finally, you will fit an exponential distribution to the data using Maximum Likelihood Estimation (MLE) (as discussed in Chapter 13 of the Loss Models book).</p>
 <div id="simulating-data" class="section level3">
 <h3><span class="header-section-number">3.1.1</span> Simulating data</h3>
@@ -299,7 +302,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb66-12"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb66-12"></a></span>
 <span id="cb66-13"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb66-13"></a><span class="co"># @5.</span></span>
 <span id="cb66-14"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb66-14"></a><span class="kw">mean</span>(sim)</span></code></pre></div>
-<pre><code>[1] 5.09</code></pre>
+<pre><code>[1] 5.014</code></pre>
 </div>
 </div>
 <div id="exploratory-analysis" class="section level3">
@@ -314,7 +317,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb68-1"></a><span class="co"># @1. </span></span>
 <span id="cb68-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb68-2"></a>variance &lt;-<span class="st"> </span><span class="kw">var</span>(sim)</span>
 <span id="cb68-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb68-3"></a>variance</span></code></pre></div>
-<pre><code>[1] 26.19</code></pre>
+<pre><code>[1] 24.68</code></pre>
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb70-1"></a><span class="co"># @2.</span></span>
 <span id="cb70-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb70-2"></a>mu &lt;-<span class="st"> </span><span class="kw">mean</span>(sim)</span>
 <span id="cb70-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb70-3"></a>sigma &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">var</span>(sim))</span>
@@ -322,15 +325,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb70-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb70-5"></a></span>
 <span id="cb70-6"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb70-6"></a>skewness &lt;-<span class="st"> </span>numerator <span class="op">/</span><span class="st"> </span>sigma<span class="op">^</span><span class="dv">3</span></span>
 <span id="cb70-7"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb70-7"></a>skewness</span></code></pre></div>
-<pre><code>[1] 2.042</code></pre>
+<pre><code>[1] 2.026</code></pre>
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb72-1"></a><span class="co"># @3.</span></span>
 <span id="cb72-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb72-2"></a>var95 &lt;-<span class="st"> </span><span class="kw">quantile</span>(sim, <span class="fl">0.95</span>);</span>
 <span id="cb72-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb72-3"></a>var95</span></code></pre></div>
 <pre><code>  95% 
-15.23 </code></pre>
+14.81 </code></pre>
 <div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb74-1"></a>tvar95 &lt;-<span class="st"> </span><span class="kw">mean</span>(sim[sim <span class="op">&gt;</span><span class="st"> </span>var95])</span>
 <span id="cb74-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb74-2"></a>tvar95</span></code></pre></div>
-<pre><code>[1] 20.3</code></pre>
+<pre><code>[1] 19.9</code></pre>
 </div>
 </div>
 <div id="data-visualization-with-ggplot" class="section level3">
@@ -432,7 +435,7 @@ This is the MLE for <span class="math inline">\(\lambda\)</span>.</p>
 <span class="math display">\[\frac{d^2 l}{ d \lambda^2} = -\frac{n}{\lambda^2}\]</span>
 and evaluated at the above obtained solution, we have that
 <span class="math display">\[ -\frac{n}{\lambda^2} = -\frac{(\sum_{i = 1}^{nsim} x_i)^2}{n} &lt; 0\]</span></p>
-<p>which proves that our solution is indeed maximizing the log-likelihood as <span class="math display">\[x \in [0, \inf)\]</span>.</p>
+<p>which proves that our solution is indeed maximizing the log-likelihood.</p>
 </div>
 <ol start="5" style="list-style-type: decimal">
 <li>You will now find the MLE numerically in R by optimizing the likelihood using the <code>nlm</code> procedure;</li>
@@ -485,13 +488,13 @@ where <span class="math inline">\(\Phi\)</span> is the CDF of the standard norma
 maximum positive value</code></pre>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb82-1"></a>fit</span></code></pre></div>
 <pre><code>$minimum
-[1] 26273
+[1] 26122
 
 $estimate
-[1] -1.627
+[1] -1.612
 
 $gradient
-[1] -0.0001297
+[1] -8.8e-05
 
 $hessian
       [,1]
@@ -505,9 +508,9 @@ $iterations
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb84-1"></a><span class="co"># @5</span></span>
 <span id="cb84-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb84-2"></a>lambdaMLE &lt;-<span class="st"> </span><span class="kw">exp</span>(fit<span class="op">$</span>estimate)</span>
 <span id="cb84-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb84-3"></a>lambdaMLE</span></code></pre></div>
-<pre><code>[1] 0.1965</code></pre>
+<pre><code>[1] 0.1994</code></pre>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb86-1"></a>nsim <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(sim)</span></code></pre></div>
-<pre><code>[1] 0.1965</code></pre>
+<pre><code>[1] 0.1994</code></pre>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb88-1"></a><span class="co"># @6</span></span>
 <span id="cb88-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb88-2"></a>sigma.beta &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">solve</span>(fit<span class="op">$</span>hessian))</span>
 <span id="cb88-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb88-3"></a>sigma.lambda &lt;-<span class="st"> </span>sigma.beta <span class="op">*</span><span class="st"> </span>lambdaMLE</span>
@@ -533,7 +536,7 @@ $iterations
 6.2 Verify that <span class="math inline">\(E[\hat{\lambda}] \approx \lambda\)</span> (since we only have 10 000 simulated datasets).
 <div class="fold s">
 <div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb91-1"></a><span class="kw">mean</span>(Sims)</span></code></pre></div>
-<pre><code>[1] 0.5005</code></pre>
+<pre><code>[1] 0.5004</code></pre>
 </div>
 6.3 Grab a piece of paper, derive the variance of this estimator and calculate it.
 <div class="fold s">
@@ -545,7 +548,7 @@ and hence <span class="math inline">\(\mathcal{I}_n = n\mathcal{I} = \frac{n}{\l
 6.3 Calculate the variance of the <span class="math inline">\(\hat{\lambda}\)</span> using the simulations results. This should be close to the value that you calculated using the analytical expression.
 <div class="fold s">
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb93-1"></a><span class="kw">var</span>(Sims)</span></code></pre></div>
-<pre><code>[1] 0.0002562</code></pre>
+<pre><code>[1] 0.0002451</code></pre>
 </div>
 6.4 Construct a <span class="math inline">\(95\%\)</span> confidence interval (CI) for each of the <span class="math inline">\(\hat{\lambda}\)</span> in the simulated data sets. How do you interpret this <span class="math inline">\(95\%\)</span> confidence interval? Hint: calculate how many CIs contain the true parameter value <span class="math inline">\(\lambda\)</span>.
 <div class="fold s">
@@ -556,7 +559,7 @@ and hence <span class="math inline">\(\mathcal{I}_n = n\mathcal{I} = \frac{n}{\l
 <span id="cb95-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb95-5"></a>  CL</span>
 <span id="cb95-6"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb95-6"></a>}))</span>
 <span id="cb95-7"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb95-7"></a><span class="kw">sum</span>(<span class="kw">apply</span>(SimsCI, <span class="dv">1</span>, <span class="cf">function</span>(x) Lambda <span class="op">&gt;</span><span class="st"> </span>x[<span class="dv">1</span>] <span class="op">&amp;</span><span class="st"> </span>Lambda <span class="op">&lt;</span><span class="st"> </span>x[<span class="dv">2</span>])) <span class="op">/</span><span class="st"> </span><span class="fl">1e4</span></span></code></pre></div>
-<pre><code>[1] 0.9464</code></pre>
+<pre><code>[1] 0.9519</code></pre>
 </div>
 <!-- <div class="fold s"> -->
 <!-- </div> -->
@@ -579,9 +582,9 @@ Hint: Check the specification of the lognormal distribution in R, <code>?rlnorm<
 <div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb97-1"></a><span class="co"># Example of the floor function</span></span>
 <span id="cb97-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb97-2"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">6</span>)<span class="op">*</span><span class="dv">3</span></span>
 <span id="cb97-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb97-3"></a><span class="kw">rbind</span>(<span class="dt">x =</span> x, <span class="dt">floor =</span> <span class="kw">floor</span>(x))</span></code></pre></div>
-<pre><code>       [,1]  [,2]  [,3]    [,4]   [,5]  [,6]
-x     2.398 2.403 2.035 0.01033 0.6584 2.891
-floor 2.000 2.000 2.000 0.00000 0.0000 2.000</code></pre>
+<pre><code>        [,1]  [,2] [,3]  [,4]  [,5]   [,6]
+x     0.1158 1.338 2.44 2.521 2.676 0.8185
+floor 0.0000 1.000 2.00 2.000 2.000 0.0000</code></pre>
 <div class="fold s">
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb99-1"></a>nsim &lt;-<span class="st"> </span><span class="dv">10000</span>;</span>
 <span id="cb99-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb99-2"></a>sim &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="kw">rnorm</span>(nsim, <span class="dt">mean =</span> <span class="fl">-1.5</span>, <span class="dt">sd =</span> <span class="dv">1</span>))</span>
