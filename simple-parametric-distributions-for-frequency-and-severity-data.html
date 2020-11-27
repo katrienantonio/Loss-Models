@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3 Simple, parametric distributions for frequency and severity data | Loss Models : a collection of computer labs in R</title>
-  <meta name="description" content="Tutorials for the course of Loss Models">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Tutorials for the course of Loss Models" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3 Simple, parametric distributions for frequency and severity data | Loss Models : a collection of computer labs in R" />
   <meta property="og:type" content="book" />
@@ -22,18 +21,18 @@
   <meta name="twitter:description" content="Tutorials for the course of Loss Models" />
   
 
-<meta name="author" content="Katrien Antonio and Jonas Crevecoeur">
+<meta name="author" content="Katrien Antonio, Jonas Crevecoeur and Bavo DC Campo" />
 
 
-<meta name="date" content="2020-09-09">
+<meta name="date" content="2020-11-26" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="data-exploration.html">
-<link rel="next" href="putting-it-all-together-case-study-on-modelling-claim-counts.html">
+<link rel="prev" href="data-exploration.html"/>
+<link rel="next" href="putting-it-all-together-case-study-on-modelling-claim-counts.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +40,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -48,6 +48,9 @@
 
 
 
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script>
 $(document).ready(function() {
 
@@ -89,41 +92,68 @@ $(document).ready(function() {
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -143,7 +173,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2" data-path="data-exploration.html"><a href="data-exploration.html"><i class="fa fa-check"></i><b>2</b> Data exploration</a><ul>
 <li class="chapter" data-level="2.1" data-path="data-exploration.html"><a href="data-exploration.html#importing-data-in-r"><i class="fa fa-check"></i><b>2.1</b> Importing data in R</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="data-exploration.html"><a href="data-exploration.html#determining-the-file-path"><i class="fa fa-check"></i><b>2.1.1</b> Determining the file path</a></li>
-<li class="chapter" data-level="2.1.2" data-path="data-exploration.html"><a href="data-exploration.html#import-a-.txt-file"><i class="fa fa-check"></i><b>2.1.2</b> Import a .txt file</a></li>
+<li class="chapter" data-level="2.1.2" data-path="data-exploration.html"><a href="data-exploration.html#organizing-your-analysis"><i class="fa fa-check"></i><b>2.1.2</b> Organizing your analysis</a></li>
+<li class="chapter" data-level="2.1.3" data-path="data-exploration.html"><a href="data-exploration.html#import-a-.txt-file"><i class="fa fa-check"></i><b>2.1.3</b> Import a .txt file</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="data-exploration.html"><a href="data-exploration.html#data-exploration-1"><i class="fa fa-check"></i><b>2.2</b> Data exploration</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="data-exploration.html"><a href="data-exploration.html#variable-types"><i class="fa fa-check"></i><b>2.2.1</b> variable types</a></li>
@@ -248,26 +279,26 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Use the R function <code>rexp</code> to simulate <code>10 000</code> observations from an exponential distribution with mean <span class="math inline">\(5\)</span>.</p>
 <ol style="list-style-type: decimal">
 <li>Create a variable <code>nsim</code> for the number of simulations;</li>
-<li>Create a variable <code>lambda</code> for the <span class="math inline">\(\lambda\)</span> value of the exponential distribution. Hint: the mean of the exponential distribution is given by <span class="math inline">\(\frac{1}{\lambda}\)</span> when using the parametrization given above;</li>
-<li>Check the documentation of <code>rexp</code> to see which parametrization <code>R</code> uses for the exponential distribution;</li>
+<li>Create a variable <code>lambda</code> for the <span class="math inline">\(\lambda\)</span> value of the exponential distribution. Hint: the mean of the exponential distribution is given by <span class="math inline">\(\frac{1}{\lambda}\)</span> when using the parameterization given above;</li>
+<li>Check the documentation of <code>rexp</code> to see which parameterization <code>R</code> uses for the exponential distribution;</li>
 <li>Simulate <code>nsim</code> observations from the exponential distribution. Store the result in the variable <code>sim</code>;</li>
 <li>Calculate <code>mean(sim)</code> and verify that the simulated mean is close to <span class="math inline">\(5\)</span>.</li>
 </ol>
 <div class="fold s">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># @1. </span>
-nsim &lt;-<span class="st"> </span><span class="dv">10000</span>;
-
-<span class="co"># @2.</span>
-lambda &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">5</span>;
-
-<span class="co"># @3.</span>
-?rexp
-
-<span class="co"># @4. </span>
-sim &lt;-<span class="st"> </span><span class="kw">rexp</span>(nsim, <span class="dt">rate =</span> lambda);
-
-<span class="co"># @5.</span>
-<span class="kw">mean</span>(sim)</code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb66-1"></a><span class="co"># @1. </span></span>
+<span id="cb66-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb66-2"></a>nsim &lt;-<span class="st"> </span><span class="dv">10000</span></span>
+<span id="cb66-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb66-3"></a></span>
+<span id="cb66-4"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb66-4"></a><span class="co"># @2.</span></span>
+<span id="cb66-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb66-5"></a>lambda &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">5</span></span>
+<span id="cb66-6"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb66-6"></a></span>
+<span id="cb66-7"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb66-7"></a><span class="co"># @3.</span></span>
+<span id="cb66-8"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb66-8"></a>?rexp</span>
+<span id="cb66-9"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb66-9"></a></span>
+<span id="cb66-10"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb66-10"></a><span class="co"># @4. </span></span>
+<span id="cb66-11"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb66-11"></a>sim &lt;-<span class="st"> </span><span class="kw">rexp</span>(nsim, <span class="dt">rate =</span> lambda)</span>
+<span id="cb66-12"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb66-12"></a></span>
+<span id="cb66-13"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb66-13"></a><span class="co"># @5.</span></span>
+<span id="cb66-14"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb66-14"></a><span class="kw">mean</span>(sim)</span></code></pre></div>
 <pre><code>[1] 5.09</code></pre>
 </div>
 </div>
@@ -275,29 +306,30 @@ sim &lt;-<span class="st"> </span><span class="kw">rexp</span>(nsim, <span class
 <h3><span class="header-section-number">3.1.2</span> Exploratory analysis</h3>
 <ol style="list-style-type: decimal">
 <li>Calculate the (empirical) variance of the simulated sample;</li>
-<li>Calculate the (emprical) skewness of the simulated sample. The skewness is defined as <span class="math display">\[ \frac{E((X-\mu)^3)}{\sigma^3}; \]</span></li>
+<li>Calculate the (empirical) skewness of the simulated sample. The skewness is defined as
+<span class="math display">\[ \frac{E((X-\mu)^3)}{\sigma^3}; \]</span></li>
 <li>Calculate (empirically) <span class="math inline">\(VaR_{0.95}\)</span> and <span class="math inline">\(TVaR_{0.95}\)</span> for the simulated sample.</li>
 </ol>
 <div class="fold s">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># @1. </span>
-variance &lt;-<span class="st"> </span><span class="kw">var</span>(sim)
-variance</code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb68-1"></a><span class="co"># @1. </span></span>
+<span id="cb68-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb68-2"></a>variance &lt;-<span class="st"> </span><span class="kw">var</span>(sim)</span>
+<span id="cb68-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb68-3"></a>variance</span></code></pre></div>
 <pre><code>[1] 26.19</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># @2.</span>
-mu &lt;-<span class="st"> </span><span class="kw">mean</span>(sim)
-sigma &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">var</span>(sim))
-numerator &lt;-<span class="st"> </span><span class="kw">mean</span>((sim <span class="op">-</span><span class="st"> </span>mu)<span class="op">^</span><span class="dv">3</span>)
-
-skewness &lt;-<span class="st"> </span>numerator <span class="op">/</span><span class="st"> </span>sigma<span class="op">^</span><span class="dv">3</span>
-skewness</code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb70-1"></a><span class="co"># @2.</span></span>
+<span id="cb70-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb70-2"></a>mu &lt;-<span class="st"> </span><span class="kw">mean</span>(sim)</span>
+<span id="cb70-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb70-3"></a>sigma &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">var</span>(sim))</span>
+<span id="cb70-4"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb70-4"></a>numerator &lt;-<span class="st"> </span><span class="kw">mean</span>((sim <span class="op">-</span><span class="st"> </span>mu)<span class="op">^</span><span class="dv">3</span>)</span>
+<span id="cb70-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb70-5"></a></span>
+<span id="cb70-6"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb70-6"></a>skewness &lt;-<span class="st"> </span>numerator <span class="op">/</span><span class="st"> </span>sigma<span class="op">^</span><span class="dv">3</span></span>
+<span id="cb70-7"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb70-7"></a>skewness</span></code></pre></div>
 <pre><code>[1] 2.042</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># @3.</span>
-var95 &lt;-<span class="st"> </span><span class="kw">quantile</span>(sim, <span class="fl">0.95</span>);
-var95</code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb72-1"></a><span class="co"># @3.</span></span>
+<span id="cb72-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb72-2"></a>var95 &lt;-<span class="st"> </span><span class="kw">quantile</span>(sim, <span class="fl">0.95</span>);</span>
+<span id="cb72-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb72-3"></a>var95</span></code></pre></div>
 <pre><code>  95% 
 15.23 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tvar95 &lt;-<span class="st"> </span><span class="kw">mean</span>(sim[sim <span class="op">&gt;</span><span class="st"> </span>var95])
-tvar95</code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb74-1"></a>tvar95 &lt;-<span class="st"> </span><span class="kw">mean</span>(sim[sim <span class="op">&gt;</span><span class="st"> </span>var95])</span>
+<span id="cb74-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb74-2"></a>tvar95</span></code></pre></div>
 <pre><code>[1] 20.3</code></pre>
 </div>
 </div>
@@ -312,8 +344,8 @@ tvar95</code></pre></div>
 <p><span class="math display">\[ \hat{F}(x_{(i)}) = \frac{\# \{\text{observations } \leq x_{(i)}\}}{n} = \frac{i}{n}.\]</span></p>
 <!-- 2.1. Create two vectors $x$ and $y$ with $x[i] = x_{(i)}$ and $y[i] = \frac{i}{n}$; -->
 <p>2.1. Create a new ggplot. Add <code>stat_ecdf</code> using the simulated data;</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">stat_ecdf</span>(<span class="kw">aes</span>(???))</code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb76-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb76-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb76-2"></a><span class="st">  </span><span class="kw">stat_ecdf</span>(<span class="kw">aes</span>(???))</span></code></pre></div>
 <p>2.2. Change the color of the line to blue by adding the option <code>col = #99CCFF</code> to <code>stat_ecdf</code>;</p>
 <p>2.3. Add the black and white ggplot theme, <code>theme_bw()</code>;</p>
 <p>2.4. Add <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> labels to the graph. Hint: use <code>xlab</code>, <code>ylab</code>;</p>
@@ -325,42 +357,42 @@ tvar95</code></pre></div>
 </ol>
 <p><img src="_main_files/figure-html/parametric_distributions_density-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="fold s">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># @1</span>
-<span class="kw">library</span>(ggplot2)
-
-<span class="co"># @2.1</span>
-
-p &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_ecdf</span>(<span class="kw">aes</span>(sim))
-
-<span class="co"># @2.2</span>
-p &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_ecdf</span>(<span class="kw">aes</span>(sim), <span class="dt">col =</span> <span class="st">&quot;#99CCFF&quot;</span>)
-
-<span class="co"># @2.3</span>
-p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()
-
-<span class="co"># @2.4</span>
-p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&#39;x&#39;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&#39;F(x)&#39;</span>) 
-
-<span class="co"># @2.5</span>
-p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> var95, <span class="dt">linetype =</span> <span class="st">&#39;dashed&#39;</span>) 
-
-<span class="co"># @2.6</span>
-p &lt;-<span class="st"> </span>p <span class="op">+</span>
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&#39;Empirical CDF&#39;</span>) 
-
-<span class="kw">print</span>(p)</code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-1"></a><span class="co"># @1</span></span>
+<span id="cb77-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-2"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb77-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-3"></a></span>
+<span id="cb77-4"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-4"></a><span class="co"># @2.1</span></span>
+<span id="cb77-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-5"></a></span>
+<span id="cb77-6"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-6"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb77-7"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-7"></a><span class="st">  </span><span class="kw">stat_ecdf</span>(<span class="kw">aes</span>(sim))</span>
+<span id="cb77-8"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-8"></a></span>
+<span id="cb77-9"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-9"></a><span class="co"># @2.2</span></span>
+<span id="cb77-10"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-10"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb77-11"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-11"></a><span class="st">  </span><span class="kw">stat_ecdf</span>(<span class="kw">aes</span>(sim), <span class="dt">col =</span> <span class="st">&quot;#99CCFF&quot;</span>)</span>
+<span id="cb77-12"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-12"></a></span>
+<span id="cb77-13"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-13"></a><span class="co"># @2.3</span></span>
+<span id="cb77-14"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-14"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</span>
+<span id="cb77-15"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-15"></a></span>
+<span id="cb77-16"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-16"></a><span class="co"># @2.4</span></span>
+<span id="cb77-17"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-17"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span></span>
+<span id="cb77-18"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-18"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&#39;x&#39;</span>) <span class="op">+</span></span>
+<span id="cb77-19"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-19"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&#39;F(x)&#39;</span>) </span>
+<span id="cb77-20"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-20"></a></span>
+<span id="cb77-21"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-21"></a><span class="co"># @2.5</span></span>
+<span id="cb77-22"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-22"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span></span>
+<span id="cb77-23"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-23"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> var95, <span class="dt">linetype =</span> <span class="st">&#39;dashed&#39;</span>) </span>
+<span id="cb77-24"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-24"></a></span>
+<span id="cb77-25"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-25"></a><span class="co"># @2.6</span></span>
+<span id="cb77-26"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-26"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span></span>
+<span id="cb77-27"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-27"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&#39;Empirical CDF&#39;</span>) </span>
+<span id="cb77-28"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-28"></a></span>
+<span id="cb77-29"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb77-29"></a><span class="kw">print</span>(p)</span></code></pre></div>
 <p><img src="_main_files/figure-html/parametric_distributions_visualization_solution-1.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># @3</span>
-<span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(sim), <span class="dt">fill =</span> <span class="st">&quot;#99CCFF&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&#39;Density&#39;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&#39;x&#39;</span>)</code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb78-1"></a><span class="co"># @3</span></span>
+<span id="cb78-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb78-2"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb78-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb78-3"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(sim), <span class="dt">fill =</span> <span class="st">&quot;#99CCFF&quot;</span>) <span class="op">+</span></span>
+<span id="cb78-4"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb78-4"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb78-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb78-5"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&#39;Density&#39;</span>) <span class="op">+</span></span>
+<span id="cb78-6"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb78-6"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&#39;x&#39;</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/parametric_distributions_visualization_solution-2.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -373,69 +405,85 @@ p &lt;-<span class="st"> </span>p <span class="op">+</span>
 <li>Write down (on paper) the formula for the likelihood of the observed data as a function of <span class="math inline">\(\lambda\)</span>;</li>
 </ol>
 <div class="fold s">
-<p>The likelihood for the observed data is <span class="math display">\[L(\lambda) = \prod_{i=1}^{\text{nsim}} \lambda \cdot e^{-\lambda \cdot x_i}.\]</span></p>
+<p>The likelihood for the observed data is
+<span class="math display">\[L(\lambda) = \prod_{i=1}^{\text{nsim}} \lambda \cdot e^{-\lambda \cdot x_i}.\]</span></p>
 </div>
 <ol start="2" style="list-style-type: decimal">
-<li>Derive (on paper) the loglikelihood;</li>
+<li>Derive (on paper) the log-likelihood;</li>
 </ol>
 <div class="fold s">
-<p>The loglikelihood for the observed data is <span class="math display">\[l(\lambda) = \sum_{i=1}^{\text{nsim}} \log(\lambda) -\lambda \cdot x_i.\]</span></p>
+<p>The log-likelihood for the observed data is
+<span class="math display">\[l(\lambda) = \sum_{i=1}^{\text{nsim}} \log(\lambda) -\lambda \cdot x_i.\]</span></p>
 </div>
 <ol start="3" style="list-style-type: decimal">
 <li>Compute (on paper) the MLE for <span class="math inline">\(\lambda\)</span>. Hint: put <span class="math inline">\(\frac{d \ell}{ d \lambda}(\hat{\lambda}) = 0\)</span> and solve for the unknown <span class="math inline">\(\lambda\)</span>;</li>
 </ol>
 <div class="fold s">
-<p><span class="math display">\[\frac{d l}{ d \lambda} = \frac{n}{\lambda} -  \sum_{i=1}^{\text{nsim}} x_i\]</span> This derivative is zero when</p>
-<p><span class="math display">\[ \hat{\lambda} = \frac{\text{nsim}}{\sum_{i=1}^{\text{nsim}} x_i}.\]</span> This is the MLE for <span class="math inline">\(\lambda\)</span>.</p>
+<p><span class="math display">\[\frac{d l}{ d \lambda} = \frac{n}{\lambda} -  \sum_{i=1}^{\text{nsim}} x_i\]</span>
+This derivative is zero when</p>
+<p><span class="math display">\[ \hat{\lambda} = \frac{\text{nsim}}{\sum_{i=1}^{\text{nsim}} x_i}.\]</span>
+This is the MLE for <span class="math inline">\(\lambda\)</span>.</p>
 </div>
 <ol start="4" style="list-style-type: decimal">
+<li>Show that this solution maximizes our log-likelihood.</li>
+</ol>
+<div class="fold s">
+<p>The second derivative is equal to
+<span class="math display">\[\frac{d^2 l}{ d \lambda^2} = -\frac{n}{\lambda^2}\]</span>
+and evaluated at the above obtained solution, we have that
+<span class="math display">\[ -\frac{n}{\lambda^2} = -\frac{(\sum_{i = 1}^{nsim} x_i)^2}{n} &lt; 0\]</span></p>
+<p>which proves that our solution is indeed maximizing the log-likelihood as <span class="math display">\[x \in [0, \inf)\]</span>.</p>
+</div>
+<ol start="5" style="list-style-type: decimal">
 <li>You will now find the MLE numerically in R by optimizing the likelihood using the <code>nlm</code> procedure;</li>
 </ol>
-<p>4.1. Define an R-function <code>loglikelihood</code> which takes as input <span class="math inline">\(\lambda\)</span> and returns the loglikelihood for the simulated sample;</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">loglikelihood &lt;-<span class="st"> </span><span class="cf">function</span>(lambda)
-{
-  loglikelihood &lt;-<span class="st"> </span>???
-  <span class="kw">return</span>(loglikelihood)
-}</code></pre></div>
-<p>4.2. The <code>nlm</code> procedure minimizes a function. You will minimize the negative loglikelihood <span class="math inline">\(-l(\lambda)\)</span> to find the maximum likelihood estimator <span class="math inline">\(\hat{\lambda}\)</span>. Start from the result of 4.1 and create a function <code>negLoglikelihood</code> which returns the negative loglikelihood;</p>
-<p>4.3. The <code>nlm</code> procedure searches for the optimal parameter in the domain <span class="math inline">\((-\infty, \infty)\)</span>. You will use a transformation <span class="math inline">\(\lambda = \exp(\beta)\)</span> and optimize the likelihood for this parameter <span class="math inline">\(\beta \in (-\infty, \infty)\)</span>. Update the function <code>negloglikelihood</code> to take <span class="math inline">\(\beta\)</span> as its input;</p>
-<p>4.4. Minimize the function <code>negLoglikelihood</code> you defined in 4.3. using the <code>nlm</code> procedure. Add the option <code>hessian = TRUE</code>;</p>
-<p>4.5. Interpret the output of <code>nlm</code>. What is the maximum likelihood estimate for <span class="math inline">\(\beta\)</span> and what about <span class="math inline">\(\lambda\)</span> (see the discussion in Section 13.3 on Variable and interval estimation). Do you find the same result as in 3.?</p>
-<p>4.6. You will now construct a <span class="math inline">\(95\%\)</span> confidence interval for the unknown parameter <span class="math inline">\(\beta\)</span> and afterwards for <span class="math inline">\(\lambda\)</span>. Under MLE the actual parameter <span class="math inline">\(\beta\)</span> is asymptotically distributed as (see Chapter 13 on Variance and interval estimation)</p>
-<p><span class="math display">\[ \beta \sim \mathcal{N}(\hat{\beta}, \mathcal{I}^{-1}(\hat{\beta})),\]</span> where <span class="math inline">\(\mathcal{I}\)</span> denotes the Fisher information matrix. You calculate this matrix as the negative of the Hessian, the matrix with the second order derivatives of the log-likelihood, evaluated in <span class="math inline">\(\hat{\beta}\)</span>. Of course, since the Exponential distribution only has one paremeter, the matrix reduces to a scalar.</p>
-<p>4.6.1. You added the option <code>hessian = TRUE</code> in <code>nlm</code> to obtain the Hessian (numerically) in the <code>nlm</code> procedure. Use the Hessian to calculate the standard error of the MLE <span class="math inline">\(\hat{\beta}\)</span>. Because you calculated the Hessian of the negative log-likelihood, it suffices to take its inverse to obtain the (asymptotic) variance of the MLE.</p>
-<p>4.6.2. A <span class="math inline">\(95\%\)</span> confidence interval for the actual parameter <span class="math inline">\(\beta\)</span> is then given by</p>
-<p><span class="math display">\[ [\hat{\beta} - \Phi^{-1}(0.975) \cdot \text{se}_{\hat{\beta}}, \hat{\beta} + \Phi^{-1}(0.975) \cdot \text{se}_{\hat{\beta}}], \]</span> where <span class="math inline">\(\Phi\)</span> is the CDF of the standard normal distributon. Calculate the <span class="math inline">\(95\%\)</span> confidence interval for the intensity <span class="math inline">\(\beta\)</span> based on the simulated sample. Is the orignal <span class="math inline">\(\beta = \log \lambda\)</span> (used for simulating the data) contained in this interval?</p>
-<p>4.6.3 You will now use the delta method (see Section 13.3 in the book) to construct a confidence interval for the unknown <span class="math inline">\(\lambda\)</span>. The MLE for <span class="math inline">\(\lambda\)</span> is obtained from the transformation <span class="math inline">\(\hat{\lambda}=\exp \hat{\beta}\)</span>. The corresponding se is calculated as <span class="math inline">\(se_{\hat{\lambda}} = (\exp \hat{\beta})^2 \cdot \text{se}_{\hat{\beta}}\)</span>. Using these ingredients you are now ready to construct the confidence interval for the unknown parameter <span class="math inline">\(\lambda\)</span>.</p>
+<p>5.1. Define an R-function <code>loglikelihood</code> which takes as input <span class="math inline">\(\lambda\)</span> and returns the log-likelihood for the simulated sample;</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb79-1"></a>loglikelihood &lt;-<span class="st"> </span><span class="cf">function</span>(lambda)</span>
+<span id="cb79-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb79-2"></a>{</span>
+<span id="cb79-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb79-3"></a>  loglikelihood &lt;-<span class="st"> </span>???</span>
+<span id="cb79-4"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb79-4"></a>  <span class="kw">return</span>(loglikelihood)</span>
+<span id="cb79-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb79-5"></a>}</span></code></pre></div>
+<p>5.2. The <code>nlm</code> procedure minimizes a function. You will minimize the negative log-likelihood <span class="math inline">\(-l(\lambda)\)</span> to find the maximum likelihood estimator <span class="math inline">\(\hat{\lambda}\)</span>. Start from the result of 4.1 and create a function <code>negLoglikelihood</code> which returns the negative log-likelihood;</p>
+<p>5.3. The <code>nlm</code> procedure searches for the optimal parameter in the domain <span class="math inline">\((-\infty, \infty)\)</span>. You will use a transformation <span class="math inline">\(\lambda = \exp(\beta)\)</span> and optimize the likelihood for this parameter <span class="math inline">\(\beta \in (-\infty, \infty)\)</span>. Update the function <code>negloglikelihood</code> to take <span class="math inline">\(\beta\)</span> as its input;</p>
+<p>5.4. Minimize the function <code>negLoglikelihood</code> you defined in 4.3. using the <code>nlm</code> procedure. Add the option <code>hessian = TRUE</code>;</p>
+<p>5.5. Interpret the output of <code>nlm</code>. What is the maximum likelihood estimate for <span class="math inline">\(\beta\)</span> and what about <span class="math inline">\(\lambda\)</span> (see the discussion in Section 13.3 on Variable and interval estimation). Do you find the same result as in 3.?</p>
+<p>5.6. You will now construct a <span class="math inline">\(95\%\)</span> confidence interval for the unknown parameter <span class="math inline">\(\beta\)</span> and afterwards for <span class="math inline">\(\lambda\)</span>. Under MLE the actual parameter <span class="math inline">\(\beta\)</span> is asymptotically distributed as (see Chapter 13 on Variance and interval estimation)</p>
+<p><span class="math display">\[ \hat{\beta} \sim \mathcal{N}(\beta, \mathcal{I}^{-1}_n(\beta)),\]</span>
+where <span class="math inline">\(\mathcal{I}_n\)</span> denotes the Fisher information matrix. You calculate this matrix as the negative of the Hessian, the matrix with the second order derivatives of the log-likelihood, evaluated in <span class="math inline">\(\hat{\beta}\)</span>. Of course, since the Exponential distribution only has one parameter, the matrix reduces to a scalar.</p>
+<p>5.6.1. You added the option <code>hessian = TRUE</code> in <code>nlm</code> to obtain the Hessian (numerically) in the <code>nlm</code> procedure. Use the Hessian to calculate the standard error (se) of the MLE <span class="math inline">\(\hat{\beta}\)</span>. Because you calculated the Hessian of the negative log-likelihood, it suffices to take its inverse to obtain the (asymptotic) variance of the MLE.</p>
+<p>5.6.2. A <span class="math inline">\(95\%\)</span> confidence interval for the actual parameter <span class="math inline">\(\beta\)</span> is then given by</p>
+<p><span class="math display">\[ [\hat{\beta} - \Phi^{-1}(0.975) \cdot \text{se}_{\hat{\beta}}, \hat{\beta} + \Phi^{-1}(0.975) \cdot \text{se}_{\hat{\beta}}], \]</span>
+where <span class="math inline">\(\Phi\)</span> is the CDF of the standard normal distribution. Calculate the <span class="math inline">\(95\%\)</span> confidence interval for the intensity <span class="math inline">\(\beta\)</span> based on the simulated sample. Is the original <span class="math inline">\(\beta = \log \lambda\)</span> (used for simulating the data) contained in this interval?</p>
+<p>5.6.3 You will now use the delta method (see Section 13.3 in the book) to construct a confidence interval for the unknown <span class="math inline">\(\lambda\)</span>. The MLE for <span class="math inline">\(\lambda\)</span> is obtained from the transformation <span class="math inline">\(\hat{\lambda}=\exp \hat{\beta}\)</span>. The corresponding se is calculated as <span class="math inline">\(se_{\hat{\lambda}} = (\exp \hat{\beta}) \cdot \text{se}_{\hat{\beta}}\)</span>. Using these ingredients you are now ready to construct the confidence interval for the unknown parameter <span class="math inline">\(\lambda\)</span>.</p>
 <div class="fold s">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># @1</span>
-loglikelihood &lt;-<span class="st"> </span><span class="cf">function</span>(lambda)
-{
-  loglikelihood &lt;-<span class="st"> </span>nsim <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(lambda) <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(lambda <span class="op">*</span><span class="st"> </span>sim)
-  <span class="kw">return</span>(loglikelihood)
-}
-
-<span class="co"># @2</span>
-negLoglikelihood &lt;-<span class="st"> </span><span class="cf">function</span>(lambda)
-{
-  loglikelihood &lt;-<span class="st"> </span>nsim <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(lambda) <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(lambda <span class="op">*</span><span class="st"> </span>sim)
-  <span class="kw">return</span>(<span class="op">-</span>loglikelihood)
-}
-
-<span class="co"># @3</span>
-negLoglikelihood &lt;-<span class="st"> </span><span class="cf">function</span>(beta)
-{
-  lambda &lt;-<span class="st"> </span><span class="kw">exp</span>(beta)
-  loglikelihood &lt;-<span class="st"> </span>nsim <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(lambda) <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(lambda <span class="op">*</span><span class="st"> </span>sim)
-  
-  <span class="kw">return</span>(<span class="op">-</span>loglikelihood)
-}
-
-<span class="co"># @4</span>
-fit &lt;-<span class="st"> </span><span class="kw">nlm</span>(negLoglikelihood, <span class="dt">p =</span> <span class="dv">0</span>, <span class="dt">hessian =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-1"></a><span class="co"># @1</span></span>
+<span id="cb80-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-2"></a>loglikelihood &lt;-<span class="st"> </span><span class="cf">function</span>(lambda)</span>
+<span id="cb80-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-3"></a>{</span>
+<span id="cb80-4"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-4"></a>  loglikelihood &lt;-<span class="st"> </span>nsim <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(lambda) <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(lambda <span class="op">*</span><span class="st"> </span>sim)</span>
+<span id="cb80-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-5"></a>  <span class="kw">return</span>(loglikelihood)</span>
+<span id="cb80-6"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-6"></a>}</span>
+<span id="cb80-7"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-7"></a></span>
+<span id="cb80-8"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-8"></a><span class="co"># @2</span></span>
+<span id="cb80-9"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-9"></a>negLoglikelihood &lt;-<span class="st"> </span><span class="cf">function</span>(lambda)</span>
+<span id="cb80-10"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-10"></a>{</span>
+<span id="cb80-11"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-11"></a>  loglikelihood &lt;-<span class="st"> </span>nsim <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(lambda) <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(lambda <span class="op">*</span><span class="st"> </span>sim)</span>
+<span id="cb80-12"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-12"></a>  <span class="kw">return</span>(<span class="op">-</span>loglikelihood)</span>
+<span id="cb80-13"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-13"></a>}</span>
+<span id="cb80-14"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-14"></a></span>
+<span id="cb80-15"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-15"></a><span class="co"># @3</span></span>
+<span id="cb80-16"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-16"></a>negLoglikelihood &lt;-<span class="st"> </span><span class="cf">function</span>(beta)</span>
+<span id="cb80-17"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-17"></a>{</span>
+<span id="cb80-18"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-18"></a>  lambda &lt;-<span class="st"> </span><span class="kw">exp</span>(beta)</span>
+<span id="cb80-19"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-19"></a>  loglikelihood &lt;-<span class="st"> </span>nsim <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(lambda) <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(lambda <span class="op">*</span><span class="st"> </span>sim)</span>
+<span id="cb80-20"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-20"></a>  </span>
+<span id="cb80-21"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-21"></a>  <span class="kw">return</span>(<span class="op">-</span>loglikelihood)</span>
+<span id="cb80-22"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-22"></a>}</span>
+<span id="cb80-23"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-23"></a></span>
+<span id="cb80-24"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-24"></a><span class="co"># @4</span></span>
+<span id="cb80-25"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb80-25"></a>fit &lt;-<span class="st"> </span><span class="kw">nlm</span>(negLoglikelihood, <span class="dt">p =</span> <span class="dv">0</span>, <span class="dt">hessian =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>Warning in nlm(negLoglikelihood, p = 0, hessian = TRUE): NA/Inf replaced by
 maximum positive value</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit</code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb82-1"></a>fit</span></code></pre></div>
 <pre><code>$minimum
 [1] 26273
 
@@ -454,19 +502,64 @@ $code
 
 $iterations
 [1] 8</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># @5</span>
-lambdaMLE &lt;-<span class="st"> </span><span class="kw">exp</span>(fit<span class="op">$</span>estimate)
-lambdaMLE</code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb84-1"></a><span class="co"># @5</span></span>
+<span id="cb84-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb84-2"></a>lambdaMLE &lt;-<span class="st"> </span><span class="kw">exp</span>(fit<span class="op">$</span>estimate)</span>
+<span id="cb84-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb84-3"></a>lambdaMLE</span></code></pre></div>
 <pre><code>[1] 0.1965</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nsim <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(sim)</code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb86-1"></a>nsim <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(sim)</span></code></pre></div>
 <pre><code>[1] 0.1965</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># @6</span>
-sigma.beta &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">solve</span>(fit<span class="op">$</span>hessian))
-sigma.lambda &lt;-<span class="st"> </span>sigma.beta <span class="op">*</span><span class="st"> </span>lambdaMLE<span class="op">^</span><span class="dv">2</span>
-
-<span class="kw">c</span>(lambda <span class="op">-</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>) <span class="op">*</span><span class="st"> </span>sigma.lambda, lambda <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>) <span class="op">*</span><span class="st"> </span>sigma.lambda)</code></pre></div>
-<pre><code>[1] 0.1992 0.2008</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb88-1"></a><span class="co"># @6</span></span>
+<span id="cb88-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb88-2"></a>sigma.beta &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">solve</span>(fit<span class="op">$</span>hessian))</span>
+<span id="cb88-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb88-3"></a>sigma.lambda &lt;-<span class="st"> </span>sigma.beta <span class="op">*</span><span class="st"> </span>lambdaMLE</span>
+<span id="cb88-4"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb88-4"></a></span>
+<span id="cb88-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb88-5"></a><span class="kw">c</span>(lambda <span class="op">-</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>) <span class="op">*</span><span class="st"> </span>sigma.lambda, lambda <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>) <span class="op">*</span><span class="st"> </span>sigma.lambda)</span></code></pre></div>
+<pre><code>[1] 0.1961 0.2039</code></pre>
 </div>
+<ol start="6" style="list-style-type: decimal">
+<li>In the previous exercise, you focused on the estimator and now you will explore the distribution of this estimator.</li>
+</ol>
+<p>6.1 The maximum likelihood (ML) estimator is asymptotically normal and you will now explore this distribution. Previously, we computed <span class="math inline">\(\hat{\lambda}\)</span> for one simulated data set and for this exercise you have to compute it for 10 000 simulated data sets. Set the number of observations in each data set to 1000 and <span class="math inline">\(\lambda = 0.5\)</span>. Compute <span class="math inline">\(\hat{\lambda}\)</span> for each of the simulated data sets and make a histogram of the distribution.</p>
+<div class="fold s">
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb90-1"></a>n      &lt;-<span class="st"> </span><span class="fl">1e3</span></span>
+<span id="cb90-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb90-2"></a>Lambda &lt;-<span class="st"> </span><span class="fl">0.5</span></span>
+<span id="cb90-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb90-3"></a></span>
+<span id="cb90-4"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb90-4"></a>Sims &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="fl">1e4</span>, <span class="cf">function</span>(i) {</span>
+<span id="cb90-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb90-5"></a>  x &lt;-<span class="st"> </span><span class="kw">rexp</span>(n, Lambda)</span>
+<span id="cb90-6"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb90-6"></a>  <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">mean</span>(x)</span>
+<span id="cb90-7"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb90-7"></a>})</span>
+<span id="cb90-8"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb90-8"></a><span class="kw">hist</span>(Sims, <span class="dt">main =</span> <span class="kw">expression</span>(<span class="kw">hat</span>(lambda) <span class="op">%~%</span><span class="st"> </span><span class="kw">AN</span>(lambda, I[n]<span class="op">^-</span><span class="dv">1</span> <span class="op">*</span><span class="st"> </span>(lambda))))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-34-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+6.2 Verify that <span class="math inline">\(E[\hat{\lambda}] \approx \lambda\)</span> (since we only have 10 000 simulated datasets).
+<div class="fold s">
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb91-1"></a><span class="kw">mean</span>(Sims)</span></code></pre></div>
+<pre><code>[1] 0.5005</code></pre>
+</div>
+6.3 Grab a piece of paper, derive the variance of this estimator and calculate it.
+<div class="fold s">
+<p>We know that the Fisher information in a single observation <span class="math inline">\(x_i\)</span> is
+<span class="math display">\[\mathcal{I} = -E\Big[\frac{d^2 l}{ d \lambda^2}\Big] = \frac{1}{\lambda^2}\]</span>
+and hence <span class="math inline">\(\mathcal{I}_n = n\mathcal{I} = \frac{n}{\lambda^2}\)</span>. Since <span class="math inline">\(n = 1000\)</span> and <span class="math inline">\(\lambda = 0.5\)</span>, we have <span class="math inline">\(\mathcal{I}_n = 4000\)</span>. Consequently, the variance of <span class="math inline">\(\hat{\lambda}\)</span> is
+<span class="math display">\[\text{Var}(\hat{\lambda}) = \mathcal{I}_n^{-1} = 0.00025.\]</span></p>
+</div>
+6.3 Calculate the variance of the <span class="math inline">\(\hat{\lambda}\)</span> using the simulations results. This should be close to the value that you calculated using the analytical expression.
+<div class="fold s">
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb93-1"></a><span class="kw">var</span>(Sims)</span></code></pre></div>
+<pre><code>[1] 0.0002562</code></pre>
+</div>
+6.4 Construct a <span class="math inline">\(95\%\)</span> confidence interval (CI) for each of the <span class="math inline">\(\hat{\lambda}\)</span> in the simulated data sets. How do you interpret this <span class="math inline">\(95\%\)</span> confidence interval? Hint: calculate how many CIs contain the true parameter value <span class="math inline">\(\lambda\)</span>.
+<div class="fold s">
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb95-1"></a>SimsCI &lt;-<span class="st"> </span><span class="kw">do.call</span>(<span class="st">&quot;rbind&quot;</span>, <span class="kw">lapply</span>(Sims, <span class="cf">function</span>(x) {</span>
+<span id="cb95-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb95-2"></a>  LambdaEst &lt;-<span class="st"> </span>x</span>
+<span id="cb95-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb95-3"></a>  seLambda  &lt;-<span class="st"> </span><span class="kw">sqrt</span>(LambdaEst<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>n)</span>
+<span id="cb95-4"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb95-4"></a>  CL &lt;-<span class="st"> </span><span class="kw">c</span>(LambdaEst <span class="op">-</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>) <span class="op">*</span><span class="st"> </span>seLambda, LambdaEst <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>) <span class="op">*</span><span class="st"> </span>seLambda)</span>
+<span id="cb95-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb95-5"></a>  CL</span>
+<span id="cb95-6"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb95-6"></a>}))</span>
+<span id="cb95-7"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb95-7"></a><span class="kw">sum</span>(<span class="kw">apply</span>(SimsCI, <span class="dv">1</span>, <span class="cf">function</span>(x) Lambda <span class="op">&gt;</span><span class="st"> </span>x[<span class="dv">1</span>] <span class="op">&amp;</span><span class="st"> </span>Lambda <span class="op">&lt;</span><span class="st"> </span>x[<span class="dv">2</span>])) <span class="op">/</span><span class="st"> </span><span class="fl">1e4</span></span></code></pre></div>
+<pre><code>[1] 0.9464</code></pre>
+</div>
+<!-- <div class="fold s"> -->
+<!-- </div> -->
 </div>
 </div>
 <div id="discrete-distributions" class="section level2">
@@ -478,22 +571,23 @@ sigma.lambda &lt;-<span class="st"> </span>sigma.beta <span class="op">*</span><
 <ol style="list-style-type: decimal">
 <li>Simulate <code>10 000</code> observations from a lognormal distribution with density</li>
 </ol>
-<p><span class="math display">\[f(x) = \frac{1}{x \cdot \sqrt{2 \pi}} \cdot \exp \left( -(\ln(x) + 1.5 \right)^2).\]</span> Hint: Check the specification of the lognormal distribution in R, <code>?rlnorm</code>.</p>
+<p><span class="math display">\[f(x) = \frac{1}{x \cdot \sqrt{2 \pi}} \cdot \exp \left( -(\ln(x) + 1.5 \right)^2).\]</span>
+Hint: Check the specification of the lognormal distribution in R, <code>?rlnorm</code>.</p>
 <ol start="2" style="list-style-type: decimal">
 <li>Discretize the data by rounding down using the <code>floor</code> function.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Example of the floor function</span>
-x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">6</span>)<span class="op">*</span><span class="dv">3</span>
-<span class="kw">rbind</span>(<span class="dt">x =</span> x, <span class="dt">floor =</span> <span class="kw">floor</span>(x))</code></pre></div>
-<pre><code>        [,1]  [,2]  [,3]   [,4]  [,5]  [,6]
-x     0.7387 1.359 2.614 0.5499 2.883 1.962
-floor 0.0000 1.000 2.000 0.0000 2.000 1.000</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb97-1"></a><span class="co"># Example of the floor function</span></span>
+<span id="cb97-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb97-2"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">6</span>)<span class="op">*</span><span class="dv">3</span></span>
+<span id="cb97-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb97-3"></a><span class="kw">rbind</span>(<span class="dt">x =</span> x, <span class="dt">floor =</span> <span class="kw">floor</span>(x))</span></code></pre></div>
+<pre><code>       [,1]  [,2]  [,3]    [,4]   [,5]  [,6]
+x     2.398 2.403 2.035 0.01033 0.6584 2.891
+floor 2.000 2.000 2.000 0.00000 0.0000 2.000</code></pre>
 <div class="fold s">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nsim &lt;-<span class="st"> </span><span class="dv">10000</span>;
-sim &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="kw">rnorm</span>(nsim, <span class="dt">mean =</span> <span class="op">-</span><span class="fl">1.5</span>, <span class="dt">sd =</span> <span class="dv">1</span>))
-
-<span class="co"># we only observe the data discrete</span>
-sim &lt;-<span class="st"> </span><span class="kw">floor</span>(sim)</code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb99-1"></a>nsim &lt;-<span class="st"> </span><span class="dv">10000</span>;</span>
+<span id="cb99-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb99-2"></a>sim &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="kw">rnorm</span>(nsim, <span class="dt">mean =</span> <span class="fl">-1.5</span>, <span class="dt">sd =</span> <span class="dv">1</span>))</span>
+<span id="cb99-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb99-3"></a></span>
+<span id="cb99-4"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb99-4"></a><span class="co"># we only observe the data discrete</span></span>
+<span id="cb99-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb99-5"></a>sim &lt;-<span class="st"> </span><span class="kw">floor</span>(sim)</span></code></pre></div>
 </div>
 </div>
 <div id="exploratory-analysis-1" class="section level3">
@@ -514,10 +608,12 @@ sim &lt;-<span class="st"> </span><span class="kw">floor</span>(sim)</code></pre
 <li>Negative binomial</li>
 </ul>
 <div class="fold s">
-<p>The Negative binomial distribution is the best candidate, since this distribution is overdispersed.</p>
+<p>The Negative binomial distribution is the best candidate, since this distribution is overdispersed (binomial = underdispersed and poisson = equidispersed).</p>
 </div>
 <ol start="3" style="list-style-type: decimal">
-<li>Test visually whether the data belongs to the <span class="math inline">\((a, b, 0)\)</span> class, i.e. see whether the relation <span class="math display">\[ k \cdot \frac{p_k}{p_{k-1}} = a \cdot k + b, \quad k = 1,2, \ldots\]</span> holds for the simulated data.</li>
+<li>Test visually whether the data belongs to the <span class="math inline">\((a, b, 0)\)</span> class, i.e. see whether the relation
+<span class="math display">\[ k \cdot \frac{p_k}{p_{k-1}} = a \cdot k + b, \quad k = 1,2, \ldots\]</span>
+holds for the simulated data.</li>
 </ol>
 <p>3.1 Compute the left hand side (lhs) of this relation.</p>
 <ul>
@@ -532,34 +628,34 @@ sim &lt;-<span class="st"> </span><span class="kw">floor</span>(sim)</code></pre
 <li>Load the package <code>ggplot2</code>;</li>
 <li>Create a new ggplot figure. Add a <code>geom_point</code> graphic using the data points <span class="math inline">\((k, lhs)\)</span>;</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(???, ???))</code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb100-1"></a>  <span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb100-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb100-2"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(???, ???))</span></code></pre></div>
 <ul>
 <li>Change the color of the points to blue by adding the option <code>col = #99CCFF</code> to <code>geom_point</code>;</li>
 <li>You can further customize the graph with <code>theme_bw()</code>, <code>xlab</code>, <code>ylab</code>, <code>ggtitle</code>, <span class="math inline">\(\ldots\)</span>.</li>
 </ul>
 <p>3.3. Discuss. Is a distribution from the <span class="math inline">\((a, b, 0)\)</span> class a good candidate for this data?</p>
 <div class="fold s">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(sim)</code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb101-1"></a><span class="kw">mean</span>(sim)</span></code></pre></div>
 <pre><code>[1] 0.0897</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(sim)</code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb103-1"></a><span class="kw">var</span>(sim)</span></code></pre></div>
 <pre><code>[1] 0.1555</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prob &lt;-<span class="st"> </span><span class="kw">prop.table</span>(<span class="kw">table</span>(sim))
-prob</code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb105-1"></a>prob &lt;-<span class="st"> </span><span class="kw">prop.table</span>(<span class="kw">table</span>(sim))</span>
+<span id="cb105-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb105-2"></a>prob</span></code></pre></div>
 <pre><code>sim
      0      1      2      3      4      5      6      8     10 
 0.9319 0.0538 0.0104 0.0023 0.0010 0.0002 0.0001 0.0002 0.0001 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">k &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>
-pk &lt;-<span class="st"> </span>prob[k<span class="op">+</span><span class="dv">1</span>]
-pkmin1 &lt;-<span class="st"> </span>prob[k]
-
-lhs &lt;-<span class="st"> </span>k <span class="op">*</span><span class="st"> </span>pk <span class="op">/</span><span class="st"> </span>pkmin1
-
-<span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(k[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], lhs[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]), <span class="dt">color =</span> <span class="st">&quot;#99CCFF&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;k&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&#39;(a, b, 0)-relation test plot&#39;</span>)</code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb107-1"></a>k &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></span>
+<span id="cb107-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb107-2"></a>pk &lt;-<span class="st"> </span>prob[k<span class="op">+</span><span class="dv">1</span>]</span>
+<span id="cb107-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb107-3"></a>pkmin1 &lt;-<span class="st"> </span>prob[k]</span>
+<span id="cb107-4"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb107-4"></a></span>
+<span id="cb107-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb107-5"></a>lhs &lt;-<span class="st"> </span>k <span class="op">*</span><span class="st"> </span>pk <span class="op">/</span><span class="st"> </span>pkmin1</span>
+<span id="cb107-6"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb107-6"></a></span>
+<span id="cb107-7"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb107-7"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb107-8"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb107-8"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(k[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], lhs[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]), <span class="dt">color =</span> <span class="st">&quot;#99CCFF&quot;</span>) <span class="op">+</span></span>
+<span id="cb107-9"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb107-9"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb107-10"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb107-10"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;k&quot;</span>) <span class="op">+</span></span>
+<span id="cb107-11"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb107-11"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&#39;(a, b, 0)-relation test plot&#39;</span>)</span></code></pre></div>
 <pre><code>Don&#39;t know how to automatically pick scale for object of type table. Defaulting to continuous.</code></pre>
 <p><img src="_main_files/figure-html/parametric_distributions_solution_ab-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
@@ -573,23 +669,29 @@ lhs &lt;-<span class="st"> </span>k <span class="op">*</span><span class="st"> <
 </ul>
 <div id="geometric" class="section level4">
 <h4><span class="header-section-number">3.2.3.1</span> Geometric</h4>
-<p>For a Geometric distribution with parameter <span class="math inline">\(p \in [0, 1]\)</span> the probability of observing <span class="math inline">\(k\)</span> events is given by <span class="math display">\[ P(N = k) = (1-p)^{k} \cdot p.\]</span> In the Appendix ‘An inventory of discrete distributions’ of the Loss Models book you will find a different parameterization. That is <span class="math display">\[ P(N=k) = \left(\frac{\theta}{1+\theta}\right)^k \cdot \frac{1}{(1+\theta)}.\]</span> If you put <span class="math inline">\(p = \frac{1}{1+\theta}\)</span> you can work from the second to the first parametrization. Verify this.</p>
+<p>For a Geometric distribution with parameter <span class="math inline">\(p \in [0, 1]\)</span> the probability of observing <span class="math inline">\(k\)</span> events is given by
+<span class="math display">\[ P(N = k) = (1-p)^{k} \cdot p.\]</span>
+In the Appendix ‘An inventory of discrete distributions’ of the Loss Models book you will find a different parameterization. That is
+<span class="math display">\[ P(N=k) = \left(\frac{\theta}{1+\theta}\right)^k \cdot \frac{1}{(1+\theta)}.\]</span>
+If you put <span class="math inline">\(p = \frac{1}{1+\theta}\)</span> you can work from the second to the first parametrization. Verify this.</p>
 <ol style="list-style-type: decimal">
-<li>Derive an expression for the loglikelihood;</li>
+<li>Derive an expression for the log-likelihood;</li>
 </ol>
 <div class="fold s">
-<p>The likelihood is given by <span class="math display">\[ L(p) = \prod_{i=1}^{\text{nsim}} P(N = x_i) = \prod_{i=1}^{\text{nsim}} (1-p)^{x_i} \cdot p.\]</span> The loglikelihood is</p>
+<p>The likelihood is given by
+<span class="math display">\[ L(p) = \prod_{i=1}^{\text{nsim}} P(N = x_i) = \prod_{i=1}^{\text{nsim}} (1-p)^{x_i} \cdot p.\]</span>
+The log-likelihood is</p>
 <p><span class="math display">\[ l(p) = \sum_{i=1}^{\text{nsim}} \left( \log(1-p) \cdot x_i + \log(p) \right).\]</span></p>
 </div>
 <ol start="2" style="list-style-type: decimal">
-<li>Implement the negative loglikelihood as a function in R;</li>
+<li>Implement the negative log-likelihood as a function in R;</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">geom.negLoglikelihood &lt;-<span class="st"> </span><span class="cf">function</span>(p)
-{
-  loglikelihood &lt;-<span class="st"> </span>???
-  
-  <span class="kw">return</span>(<span class="op">-</span>loglikelihood)
-}</code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb109-1"></a>geom.negLoglikelihood &lt;-<span class="st"> </span><span class="cf">function</span>(p)</span>
+<span id="cb109-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb109-2"></a>{</span>
+<span id="cb109-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb109-3"></a>  loglikelihood &lt;-<span class="st"> </span>???</span>
+<span id="cb109-4"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb109-4"></a>  </span>
+<span id="cb109-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb109-5"></a>  <span class="kw">return</span>(<span class="op">-</span>loglikelihood)</span>
+<span id="cb109-6"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb109-6"></a>}</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>The probability <span class="math inline">\(p\)</span> can only take values in <span class="math inline">\([0, 1]\)</span>. Change the function <code>geom.negLoglikelihood</code> to take a parameter <span class="math inline">\(\beta \in (-\infty, \infty)\)</span>. Then transform the interval <span class="math inline">\((-\infty, \infty)\)</span> to <span class="math inline">\([0, 1]\)</span> using the logit transform</li>
 </ol>
@@ -600,22 +702,22 @@ lhs &lt;-<span class="st"> </span>k <span class="op">*</span><span class="st"> <
 <li>Maximize the likelihood using the <code>nlm</code> procedure in R and interpret the results.</li>
 </ol>
 <div class="fold s">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">geom.negLoglikelihood &lt;-<span class="st"> </span><span class="cf">function</span>(beta)
-{
-  p &lt;-<span class="st"> </span><span class="kw">exp</span>(beta) <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(beta))
-  
-  loglikelihood &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">log</span>(<span class="dv">1</span><span class="op">-</span>p) <span class="op">*</span><span class="st"> </span>sim) <span class="op">+</span><span class="st"> </span>nsim <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(p)
-  
-  <span class="kw">return</span>(<span class="op">-</span>loglikelihood)
-}
-
-fit &lt;-<span class="st"> </span><span class="kw">nlm</span>(geom.negLoglikelihood, <span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb110-1"></a>geom.negLoglikelihood &lt;-<span class="st"> </span><span class="cf">function</span>(beta)</span>
+<span id="cb110-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb110-2"></a>{</span>
+<span id="cb110-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb110-3"></a>  p &lt;-<span class="st"> </span><span class="kw">exp</span>(beta) <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(beta))</span>
+<span id="cb110-4"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb110-4"></a>  </span>
+<span id="cb110-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb110-5"></a>  loglikelihood &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">log</span>(<span class="dv">1</span><span class="op">-</span>p) <span class="op">*</span><span class="st"> </span>sim) <span class="op">+</span><span class="st"> </span>nsim <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(p)</span>
+<span id="cb110-6"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb110-6"></a>  </span>
+<span id="cb110-7"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb110-7"></a>  <span class="kw">return</span>(<span class="op">-</span>loglikelihood)</span>
+<span id="cb110-8"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb110-8"></a>}</span>
+<span id="cb110-9"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb110-9"></a></span>
+<span id="cb110-10"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb110-10"></a>fit &lt;-<span class="st"> </span><span class="kw">nlm</span>(geom.negLoglikelihood, <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>Warning in nlm(geom.negLoglikelihood, 1): NA/Inf replaced by maximum positive
 value
 
 Warning in nlm(geom.negLoglikelihood, 1): NA/Inf replaced by maximum positive
 value</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit</code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb112-1"></a>fit</span></code></pre></div>
 <pre><code>$minimum
 [1] 3099
 
@@ -630,10 +732,10 @@ $code
 
 $iterations
 [1] 6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">geom.p &lt;-<span class="st"> </span><span class="kw">exp</span>(fit<span class="op">$</span>estimate) <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(fit<span class="op">$</span>estimate))
-geom.p</code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb114-1"></a>geom.p &lt;-<span class="st"> </span><span class="kw">exp</span>(fit<span class="op">$</span>estimate) <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(fit<span class="op">$</span>estimate))</span>
+<span id="cb114-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb114-2"></a>geom.p</span></code></pre></div>
 <pre><code>[1] 0.9177</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">geom.loglik &lt;-<span class="st"> </span><span class="op">-</span>fit<span class="op">$</span>minimum</code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb116-1"></a>geom.loglik &lt;-<span class="st"> </span><span class="op">-</span>fit<span class="op">$</span>minimum</span></code></pre></div>
 </div>
 </div>
 <div id="negative-binomial" class="section level4">
@@ -647,17 +749,17 @@ geom.p</code></pre></div>
 <li>The parameters <span class="math inline">\(\mu\)</span> and <span class="math inline">\(a\)</span> can take values on the positive real line <span class="math inline">\([0, \infty)\)</span>. Choose an appropriate transormation to convert this interval to the whole real line, <span class="math inline">\((-\infty, \infty)\)</span>.</li>
 </ul>
 <div class="fold s">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">NB.negativeLoglikelihood &lt;-<span class="st"> </span><span class="cf">function</span>(beta)
-{
-  mu &lt;-<span class="st"> </span><span class="kw">exp</span>(beta[<span class="dv">1</span>])
-  a &lt;-<span class="st"> </span><span class="kw">exp</span>(beta[<span class="dv">2</span>])
-  
-  loglikelihood &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">lgamma</span>(a <span class="op">+</span><span class="st"> </span>sim) <span class="op">-</span><span class="st"> </span><span class="kw">lgamma</span>(a) <span class="op">-</span><span class="st"> </span><span class="kw">lfactorial</span>(sim) <span class="op">+</span><span class="st"> </span>sim <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(mu<span class="op">/</span>(mu <span class="op">+</span><span class="st"> </span>a)) <span class="op">+</span><span class="st"> </span>a <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(a <span class="op">/</span><span class="st"> </span>(mu <span class="op">+</span><span class="st"> </span>a)))
-  
-  <span class="kw">return</span>(<span class="op">-</span>loglikelihood)
-}
-
-fit &lt;-<span class="st"> </span><span class="kw">nlm</span>(NB.negativeLoglikelihood, <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">hessian=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb117-1"></a>NB.negativeLoglikelihood &lt;-<span class="st"> </span><span class="cf">function</span>(beta)</span>
+<span id="cb117-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb117-2"></a>{</span>
+<span id="cb117-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb117-3"></a>  mu &lt;-<span class="st"> </span><span class="kw">exp</span>(beta[<span class="dv">1</span>])</span>
+<span id="cb117-4"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb117-4"></a>  a &lt;-<span class="st"> </span><span class="kw">exp</span>(beta[<span class="dv">2</span>])</span>
+<span id="cb117-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb117-5"></a>  </span>
+<span id="cb117-6"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb117-6"></a>  loglikelihood &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">lgamma</span>(a <span class="op">+</span><span class="st"> </span>sim) <span class="op">-</span><span class="st"> </span><span class="kw">lgamma</span>(a) <span class="op">-</span><span class="st"> </span><span class="kw">lfactorial</span>(sim) <span class="op">+</span><span class="st"> </span>sim <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(mu<span class="op">/</span>(mu <span class="op">+</span><span class="st"> </span>a)) <span class="op">+</span><span class="st"> </span>a <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(a <span class="op">/</span><span class="st"> </span>(mu <span class="op">+</span><span class="st"> </span>a)))</span>
+<span id="cb117-7"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb117-7"></a>  </span>
+<span id="cb117-8"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb117-8"></a>  <span class="kw">return</span>(<span class="op">-</span>loglikelihood)</span>
+<span id="cb117-9"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb117-9"></a>}</span>
+<span id="cb117-10"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb117-10"></a></span>
+<span id="cb117-11"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb117-11"></a>fit &lt;-<span class="st"> </span><span class="kw">nlm</span>(NB.negativeLoglikelihood, <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">hessian=</span><span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>Warning in nlm(NB.negativeLoglikelihood, c(0, 0), hessian = TRUE): NA/Inf
 replaced by maximum positive value
 
@@ -666,7 +768,7 @@ replaced by maximum positive value
 
 Warning in nlm(NB.negativeLoglikelihood, c(0, 0), hessian = TRUE): NA/Inf
 replaced by maximum positive value</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit</code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb119-1"></a>fit</span></code></pre></div>
 <pre><code>$minimum
 [1] 2975
 
@@ -686,14 +788,14 @@ $code
 
 $iterations
 [1] 19</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Store the fitted values</span>
-nb.mu &lt;-<span class="st"> </span><span class="kw">exp</span>(fit<span class="op">$</span>estimate[<span class="dv">1</span>])
-nb.a &lt;-<span class="st"> </span><span class="kw">exp</span>(fit<span class="op">$</span>estimate[<span class="dv">2</span>])
-
-<span class="kw">c</span>(<span class="dt">mu =</span> nb.mu, <span class="dt">a =</span> nb.a)</code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb121-1"></a><span class="co"># Store the fitted values</span></span>
+<span id="cb121-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb121-2"></a>nb.mu &lt;-<span class="st"> </span><span class="kw">exp</span>(fit<span class="op">$</span>estimate[<span class="dv">1</span>])</span>
+<span id="cb121-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb121-3"></a>nb.a &lt;-<span class="st"> </span><span class="kw">exp</span>(fit<span class="op">$</span>estimate[<span class="dv">2</span>])</span>
+<span id="cb121-4"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb121-4"></a></span>
+<span id="cb121-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb121-5"></a><span class="kw">c</span>(<span class="dt">mu =</span> nb.mu, <span class="dt">a =</span> nb.a)</span></code></pre></div>
 <pre><code>    mu      a 
 0.0897 0.1506 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nb.loglik &lt;-<span class="st"> </span><span class="op">-</span>fit<span class="op">$</span>minimum</code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb123-1"></a>nb.loglik &lt;-<span class="st"> </span><span class="op">-</span>fit<span class="op">$</span>minimum</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -710,11 +812,11 @@ nb.a &lt;-<span class="st"> </span><span class="kw">exp</span>(fit<span class="o
 <li><p>Which of the two models does AIC prefer?</p></li>
 </ol>
 <div class="fold s">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">aic &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">geom =</span> <span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>geom.loglik,
-         <span class="dt">nb =</span> <span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>nb.loglik)
-
-<span class="co"># the nb distribution has the lowest AIC</span>
-<span class="kw">print</span>(aic)</code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb124-1"></a>aic &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">geom =</span> <span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>geom.loglik,</span>
+<span id="cb124-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb124-2"></a>         <span class="dt">nb =</span> <span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>nb.loglik)</span>
+<span id="cb124-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb124-3"></a></span>
+<span id="cb124-4"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb124-4"></a><span class="co"># the nb distribution has the lowest AIC</span></span>
+<span id="cb124-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb124-5"></a><span class="kw">print</span>(aic)</span></code></pre></div>
 <pre><code>geom   nb 
 6200 5955 </code></pre>
 </div>
@@ -739,32 +841,32 @@ nb.a &lt;-<span class="st"> </span><span class="kw">exp</span>(fit<span class="o
  1     geom
  0       nb</code></pre>
 <p>3.1 Create datasets <code>df.observed</code>, <code>df.geom</code>, <code>df.nb</code> with the simulated data in one column and a string referring to the method used in the other column.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.observed &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> ???, <span class="dt">method =</span> <span class="st">&#39;observed&#39;</span>)</code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb127-1"></a>df.observed &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> ???, <span class="dt">method =</span> <span class="st">&#39;observed&#39;</span>)</span></code></pre></div>
 <p>3.2 Combine these three datasets into a single dataset using <code>rbind</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">rbind</span>(df.observed, df.geom, df.nb);</code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb128-1"></a>df &lt;-<span class="st"> </span><span class="kw">rbind</span>(df.observed, df.geom, df.nb);</span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Create a barplot using <a href="https://ggplot2.tidyverse.org/reference/geom_bar.html"><code>geom_bar</code></a>.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(???, <span class="dt">fill =</span> ???)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb129-1"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb129-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb129-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(???, <span class="dt">fill =</span> ???)) <span class="op">+</span></span>
+<span id="cb129-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb129-3"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li><p>By default <code>geom_bar</code> stacks the bars for the different methods. To show the bars sideways add the option <code>position = position_dodge()</code>.</p></li>
 <li><p>Discuss. Which distribution best mimicks the original data?</p></li>
 </ol>
 <div class="fold s">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim.geom &lt;-<span class="st">  </span><span class="kw">rgeom</span>(nsim, geom.p)
-sim.nb &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(nsim, <span class="dt">mu =</span> nb.mu, <span class="dt">size =</span> nb.a)
-
-df.observed &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> sim, <span class="dt">method =</span> <span class="st">&#39;observed&#39;</span>)
-df.geom &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> sim.geom, <span class="dt">method =</span> <span class="st">&#39;geom&#39;</span>)
-df.nb &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> sim.nb, <span class="dt">method =</span> <span class="st">&#39;nb&#39;</span>)
-
-df &lt;-<span class="st"> </span><span class="kw">rbind</span>(df.observed, df.geom, df.nb);
-
-<span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(df<span class="op">$</span>x, <span class="dt">fill=</span>df<span class="op">$</span>method), <span class="dt">position =</span> <span class="kw">position_dodge</span>()) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>() </code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb130-1"></a>sim.geom &lt;-<span class="st">  </span><span class="kw">rgeom</span>(nsim, geom.p)</span>
+<span id="cb130-2"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb130-2"></a>sim.nb &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(nsim, <span class="dt">mu =</span> nb.mu, <span class="dt">size =</span> nb.a)</span>
+<span id="cb130-3"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb130-3"></a></span>
+<span id="cb130-4"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb130-4"></a>df.observed &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> sim, <span class="dt">method =</span> <span class="st">&#39;observed&#39;</span>)</span>
+<span id="cb130-5"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb130-5"></a>df.geom &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> sim.geom, <span class="dt">method =</span> <span class="st">&#39;geom&#39;</span>)</span>
+<span id="cb130-6"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb130-6"></a>df.nb &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> sim.nb, <span class="dt">method =</span> <span class="st">&#39;nb&#39;</span>)</span>
+<span id="cb130-7"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb130-7"></a></span>
+<span id="cb130-8"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb130-8"></a>df &lt;-<span class="st"> </span><span class="kw">rbind</span>(df.observed, df.geom, df.nb);</span>
+<span id="cb130-9"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb130-9"></a></span>
+<span id="cb130-10"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb130-10"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb130-11"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb130-11"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(df<span class="op">$</span>x, <span class="dt">fill=</span>df<span class="op">$</span>method), <span class="dt">position =</span> <span class="kw">position_dodge</span>()) <span class="op">+</span></span>
+<span id="cb130-12"><a href="simple-parametric-distributions-for-frequency-and-severity-data.html#cb130-12"></a><span class="st">  </span><span class="kw">theme_bw</span>() </span></code></pre></div>
 <p><img src="_main_files/figure-html/parametric_distributions_barplot_solution-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 
@@ -783,11 +885,13 @@ df &lt;-<span class="st"> </span><span class="kw">rbind</span>(df.observed, df.g
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -795,12 +899,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -815,7 +918,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
 "toc": {
 "collapse": "subsection"
 }
@@ -828,10 +935,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
